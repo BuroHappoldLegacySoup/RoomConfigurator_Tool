@@ -1,0 +1,176 @@
+@page "/site"
+@using BH.Engine.Base;
+@using BH.Engine.Reflection;
+@using BH.oM.BuroHappoldData;
+@using BH.Tool.SoftwareName.Engine;
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+@inject IDialogService DialogService
+
+<br />
+<MudText Typo="Typo.h4">
+    SITE / BUILDING
+    <GuideLink Link="@Links.SiteGuide" />
+</MudText>
+<br />
+
+<MudGrid Spacing="6">
+    <MudItem xs="8">
+        <ProjectSelector OnlyProject="false" ProjectSelected="() => OnSiteSelected()" />
+        <br />
+
+        @if (SharedData.Site != null)
+        {
+            <MudCard Elevation="10" Class="mt-5">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">3. Fill the form</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudForm>
+                        <MudGrid Spacing="2">
+                            <MudItem xs="12">
+                                <FormEntry_Text @bind-Value=SharedData.Site.Name Label="Site/Building name" Description="@(thisType.Description("Name"))" Required="true" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <br />
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <FormEntry_Enum @bind-Value=SharedData.Site.Sector Label="Use/Sector" Description="@(thisType.Description("Sector"))" Searchable="true"/>
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <FormEntry_Enum @bind-Value=SharedData.Site.ConstructionType Label="Construction type" Description="@(thisType.Description("ConstructionType"))" Searchable="true"/>
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <FormEntry_Enum @bind-Value=SharedData.Site.CountryRegion Label="Country/Region" Description="@(thisType.Description("CountryRegion"))" Searchable="true" />
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <FormEntry_Text @bind-Value=SharedData.Site.City Label="City" Description="@(thisType.Description("CountryRegion"))" />
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <FormEntry_Text @bind-Value=SharedData.Site.KeyContact Label="Key contact" Description="@(thisType.Description("KeyContact"))" />
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <FormEntry_Date @bind-Value=SharedData.Site.CompletionDate Label="Completion date" Description="@(thisType.Description("CompletionDate"))" />
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <FormEntry_Number @bind-Value=SharedData.Site.Area Unit="GIA m²" Label="Floor area" Format="N0" HideSpinButtons="true" Description="@(thisType.Description("Area"))" Required="true" />
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <FormEntry_Number @bind-Value=SharedData.Site.ConstructionCost Unit="£" Label="Construction value" Format="N0" HideSpinButtons="true" Description="@(thisType.Description("ConstructionCost"))" Required="true" />
+                            </MudItem>
+                            <MudItem xs="12" md="12">
+                                <FormEntry_TextArea @bind-Value=SharedData.Site.Comments Label="Comments" Description="@(thisType.Description("Comments"))" />
+                            </MudItem>
+                        </MudGrid>
+                    </MudForm>                    
+                </MudCardContent>
+            </MudCard> 
+
+            <MudCard Elevation="10" Class="mt-5">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">4. Add discipline-specific information</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudDynamicTabs Elevation="1" Class="mt-0" Style="padding: 0" Rounded="true" ApplyEffectsToContainer="true" PanelClass="px-4 py-6" AddTab="AddTab">
+                        @foreach (ISiteProperties siteProps in SharedData.Site.Properties)
+                        {
+                            <MudTabPanel Text="@(SitePropertyName(siteProps))" ShowCloseIcon="@false">
+                                <MudForm>
+                                    <MudGrid Spacing="2">
+                                        @foreach (System.Reflection.PropertyInfo prop in siteProps.GetType().GetProperties())
+                                        {
+                                            if (prop.PropertyType.IsNumeric(false))
+                                            {
+                                                <MudItem xs="12" md="6">
+                                                    <FormEntry_Number Value=@(prop.GetValue(siteProps) as dynamic) Label="@(prop.ToText())" HideSpinButtons="true" ValueChanged="@((value) => siteProps.SetPropertyValue(prop.Name, value))" Description="@(siteProps.GetType().Description(prop.Name))" />
+                                                </MudItem>
+                                            }
+                                            else if (prop.PropertyType == typeof(bool))
+                                            {
+                                                <MudItem xs="12" md="6">
+                                                    <FormEntry_Boolean Value=@(prop.GetValue(siteProps) as dynamic) Label="@(prop.ToText())" ValueChanged="@((value) => siteProps.SetPropertyValue(prop.Name, value))" Description="@(siteProps.GetType().Description(prop.Name))" />
+                                                </MudItem>
+                                            }
+                                            else if (prop.PropertyType.IsEnum)
+                                            {
+                                                <MudItem xs="12" md="6">
+                                                    <MudTooltip Text="@(siteProps.GetType().Description(prop.Name))" Placement="Placement.Bottom" Inline="false">
+                                                        <MudSelect T="object" Value=@(prop.GetValue(siteProps)) Label="@(prop.ToText())" Variant="Variant.Outlined" ValueChanged="@((value) => siteProps.SetPropertyValue(prop.Name, value))">
+                                                            @foreach (object e in Enum.GetValues(prop.PropertyType))
+                                                            {
+                                                                <MudSelectItem Value="e">@e?.IToText()</MudSelectItem>
+                                                            }
+                                                        </MudSelect>
+                                                    </MudTooltip>
+                                                    </MudItem>
+                                            }
+                                            else if (prop.PropertyType == typeof(string) && prop.Name != "Name")
+                                            {
+                                                <MudItem xs="12" md="6">
+                                                    <FormEntry_Text Value=@(prop.GetValue(siteProps).ToString()) Label="@(prop.ToText())" ValueChanged="@((value) => siteProps.SetPropertyValue(prop.Name, value))" Description="@(siteProps.GetType().Description(prop.Name))" />
+                                                </MudItem>
+                                            }
+                                        }
+                                    </MudGrid>
+                                </MudForm>
+                            </MudTabPanel>
+                        }
+                    </MudDynamicTabs>
+                </MudCardContent>
+            </MudCard>
+        }
+    </MudItem>
+    <MudItem xs="4">
+        @if (!string.IsNullOrWhiteSpace(SharedData.ProjectId))
+        {
+            <MudCard Elevation="10">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">2. Select a site</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudRadioGroup T="Guid" SelectedOption="@((SharedData.Site == null) ? Guid.Empty : SharedData.Site.BHoM_Guid)" SelectedOptionChanged="OnSiteSelected">
+                        @foreach (Site option in SharedData.Sites)
+                        {
+                            <MudDivider />
+                            @if (!option.IsSaved())
+                            {
+                                <MudTooltip Text="This site has not been saved in the database yet. Please save the assessment to keep a permanent copy.">
+                                    <MudRadio T="Guid" Color="Color.Warning" Option="@option.BHoM_Guid">@(option.Name)</MudRadio>
+                                    </MudTooltip>
+                            }
+                            else
+                            {
+                                <MudRadio T="Guid" Option="@option.BHoM_Guid">@(option.Name)</MudRadio>
+                            }
+                        }
+                    </MudRadioGroup>
+                </MudCardContent>
+                <MudCardActions Class="d-flex justify-space-between">
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="OnNewEntryClick">Add new entry</MudButton>
+                    @if (SharedData.Site != null)
+                    {
+                        string tooltipText = DeleteTooltipText();
+                        <MudButton Variant="Variant.Text" OnClick="DuplicateCurrent">Duplicate</MudButton>
+                        <MudTooltip Placement="Placement.Left" Text="@(tooltipText)">
+                            <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="DeleteCurrent" Disabled="@(!string.IsNullOrEmpty(tooltipText))">Delete</MudButton>
+                        </MudTooltip>
+                    }
+                </MudCardActions>
+            </MudCard>
+        }
+        @if (SharedData.Site != null)
+        {
+            <MudCard Elevation="10" Class="mt-5">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">5. Create/Select an assessment</MudText>
+                </MudCardHeader>
+                <MudCardContent Class="d-flex justify-center pb-8">
+                    @* TODO: update the link once the assessment page is created *@
+                    <MudButton Href="/assessment" Color="Color.Primary" Class="mx-2" Disabled>GO TO ASSESSMENT PAGE</MudButton>
+                </MudCardContent>
+            </MudCard>
+        }
+    </MudItem>
+</MudGrid>
+
+

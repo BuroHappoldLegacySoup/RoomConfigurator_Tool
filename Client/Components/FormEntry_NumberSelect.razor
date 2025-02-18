@@ -1,0 +1,79 @@
+@using System.Globalization
+
+<MudTooltip Text="@Description" Placement="Placement.Bottom" Inline="false">
+    <MudAutocomplete T="double" Label="@Label" @bind-Value="@Value" SearchFunc="@Search" SelectValueOnTab="true" Dense="@Dense"
+                     Adornment="Adornment.End" AdornmentText="@Unit" AdornmentColor="Color.Info" CoerceText="true" CoerceValue="true"
+                     Required="@Required" Error="@(ErrorMessage?.Length > 0)" ErrorText="@ErrorMessage" />
+</MudTooltip>
+
+@code {
+
+    /***************************************************/
+    /**** Public Properties                         ****/
+    /***************************************************/
+
+    [Parameter]
+    public double Value
+    {
+        get => _value;
+        set
+        {
+            if (_value == value) 
+                return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public List<double> Values { get; set; } = new List<double>();
+
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public string Unit { get; set; }
+
+    [Parameter]
+    public string Description { get; set; } = "";
+
+    [Parameter]
+    public string ErrorMessage { get; set; } = "";
+
+    [Parameter]
+    public bool Required { get; set; } = false;
+
+    [Parameter]
+    public bool Dense { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<double> ValueChanged { get; set; }
+
+
+    /***************************************************/
+    /**** Private Methods                           ****/
+    /***************************************************/
+
+    private async Task<IEnumerable<double>> Search(string value)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5);
+
+        // if text is null or empty, show complete list
+        double val;
+        double.TryParse(value, out val);
+        Value = val;
+
+        return new List<double> { val }.Concat(Values.Where(x => Math.Abs(x - val) >= 1 ));
+    }
+
+
+    /***************************************************/
+    /**** Private Fields                            ****/
+    /***************************************************/
+
+    protected double _value = 0;
+
+
+    /***************************************************/
+}

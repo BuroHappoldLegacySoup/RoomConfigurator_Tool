@@ -1,0 +1,87 @@
+@page "/project"
+@using BH.Engine.Base;
+@using BH.Tool.SoftwareName.Engine;
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+@inject IDialogService DialogService
+
+<br />
+<MudText Typo="Typo.h4">
+    PROJECT
+    <GuideLink Link="@Links.ProjectGuide" />
+</MudText>
+<br />
+
+<MudGrid Spacing="6">
+    <MudItem xs="8">
+        <ProjectSelector ProjectSelected="OnProjectSelected" OnlyProject="true" />
+        <br />
+
+        @if (SharedData.Project != null)
+        {
+            <MudCard Elevation="10">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">1b. Data regarding the project (read only)</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudAlert Severity="Severity.Info" Class="mb-3">
+                        The information provided here is collected from Deltek and is shown purely for reference. If you need to add or edit details, please do so directly in Deltek.
+                    </MudAlert>
+                    <MudForm>
+                        <MudGrid Spacing="2">
+
+                            <MudItem xs="12" md="6">
+                                <MudField Label="Status">@SharedData.Project.Status.ToText()</MudField>
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <MudField Label="Market">@SharedData.Project.Market.ToText()</MudField>
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <MudField Label="City">@SharedData.Project.City</MudField>
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <MudField Label="Country/Region">@SharedData.Project.CountryRegion</MudField>
+                            </MudItem>
+                            <MudItem xs="12">
+                                <br />
+                            </MudItem>
+                            <MudItem xs="12" md="7">
+                                <MudField Label="Project principal">@SharedData.Project.ProjectPrincipal</MudField>
+                            </MudItem>
+                            <MudItem xs="12" md="5">
+                                <MudField Label="Business unit">@SharedData.Project.ProjectPrincipalBusinessUnit.ToText()</MudField>
+                            </MudItem>
+                            <MudItem xs="12" md="7">
+                                <MudField Label="Project director">@SharedData.Project.ProjectDirector</MudField>
+                            </MudItem>
+                            <MudItem xs="12" md="5">
+                                <MudField Label="Business unit">@SharedData.Project.ProjectDirectorBusinessUnit.ToText()</MudField>
+                            </MudItem>
+                            <MudItem xs="12" md="7">
+                                <MudField Label="Project leader">@SharedData.Project.ProjectLeader</MudField>
+                            </MudItem>
+                            <MudItem xs="12" md="5">
+                                <MudField Label="Business unit">@SharedData.Project.ProjectLeaderBusinessUnit.ToText()</MudField>
+                            </MudItem>
+                        </MudGrid>
+                    </MudForm>
+                </MudCardContent>
+            </MudCard>
+        }
+    </MudItem>
+    <MudItem xs="4">
+        @if (SharedData.Project != null)
+        {
+            <MudCard Elevation="10">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">4. Create/Select a site</MudText>
+                </MudCardHeader>
+                <MudCardContent Class="d-flex justify-center pb-8">
+                    <MudButton Link="/site" Color="Color.Primary" Class="mx-2">GO TO SITE PAGE</MudButton>
+                </MudCardContent>
+            </MudCard>
+        }
+    </MudItem>
+</MudGrid>
+
+

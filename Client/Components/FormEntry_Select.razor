@@ -1,0 +1,89 @@
+
+
+@if (@AllowBespoke)
+{
+    <MudTooltip Text="@Description" Placement="Placement.Bottom" Inline="false">
+        <MudAutocomplete T="string" @bind-Value="Value" Label="@Label" SearchFunc="@Search"
+                         ResetValueOnEmptyText="true" CoerceValue="true" />
+    </MudTooltip>
+}
+else
+{
+    <MudTooltip Text="@Description" Placement="Placement.Bottom" Inline="false">
+        <MudSelect T="string" @bind-Value="Value" Label="@Label" Dense="@Dense"
+                Variant="@(Label?.Length > 0 ? Variant.Outlined : Variant.Text)"
+                Required="@Required" Error="@(!Options.Contains(m_Value))" ErrorText="">
+            @foreach (string option in Options)
+            {
+                <MudSelectItem T="string" Value="@option" />
+            }
+        </MudSelect>
+    </MudTooltip>
+}
+
+
+@code {
+
+    /***************************************************/
+    /**** Public Properties                         ****/
+    /***************************************************/
+
+    [Parameter]
+    public string Value
+    {
+        get => m_Value;
+        set
+        {
+            if (object.Equals(m_Value, value)) 
+                return;
+            m_Value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public List<string> Options { get; set; } = new List<string>();
+
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public string Description { get; set; } = "";
+
+    [Parameter]
+    public bool AllowBespoke { get; set; } = false;
+
+    [Parameter]
+    public bool Required { get; set; } = false;
+
+    [Parameter]
+    public bool Dense { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+
+    /***************************************************/
+    /**** Private Methods                           ****/
+    /***************************************************/
+
+    private async Task<IEnumerable<string>> Search(string value)
+    {
+        if (Options == null || Options.Count == 0)
+            return new List<string>();
+        else if (string.IsNullOrEmpty(value))
+            return Options.ToList();
+        else
+            return await Task.FromResult(Options.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase)));
+    }
+
+
+    /***************************************************/
+    /**** Private Fields                            ****/
+    /***************************************************/
+
+    protected string m_Value = "";
+
+
+    /***************************************************/
+}

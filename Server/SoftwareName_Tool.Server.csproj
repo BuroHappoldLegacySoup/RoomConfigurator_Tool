@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>BH.Tool.SoftwareName.Server</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BHoM" Version="6.2.2-alpha" />
+    <PackageReference Include="BHoM.Engine" Version="6.2.2-alpha" />
+    <PackageReference Include="BHoM.Interop.Analytics" Version="6.2.2-alpha" />
+    <PackageReference Include="BHoM.Interop.Data.BuroHappold" Version="6.2.2-alpha" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.20" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\oM\SoftwareName_Tool_oM.csproj" />
+	<ProjectReference Include="..\Engine\SoftwareName_Tool_Engine.csproj" />
+    <ProjectReference Include="..\Client\SoftwareName_Tool.Client.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+	<LinkerRootAssemblies Include="BHoM_Engine" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  </Target>
+
+
+</Project>

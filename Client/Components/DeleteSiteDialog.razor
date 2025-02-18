@@ -1,0 +1,29 @@
+﻿@inject HttpClient Http
+
+<MudDialog Style="max-width: 75%;">
+    <DialogContent>
+        @if (!m_Confirmed)
+        {
+            <div>Are you sure you want to delete this site ?</div>
+            <div>Note that the site will only be deleted locally and cannot be removed from the database once it has been added since there might already be data attached to it (even from other tools).</div>
+        }
+        else if (string.IsNullOrEmpty(m_ErrorMessage))
+        {
+            <div>The site was deleted successfully.</div>
+        }
+        else 
+        {
+            <div>The site could not be deleted.</div>
+            <div>@m_ErrorMessage</div>
+        }
+
+    </DialogContent>
+    <DialogActions>
+        @if (!m_Confirmed)
+        {
+            <MudButton Color="Color.Primary" OnClick="Cancel">Cancel</MudButton>
+        }
+        <MudButton Color="Color.Primary" OnClick="Confirm">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+

@@ -1,0 +1,42 @@
+@inject HttpClient Http
+
+<MudDialog Style="max-width: 75%;">
+    <DialogContent>
+        <MudText Typo="Typo.body1" Class="pr-10 pb-10">   
+            @* ---- TODO: This will need to be adapted to the capability of your website --- *@
+            This will produce a report based on the current results. There are two options:
+        </MudText>
+        <MudGrid>
+            <MudItem xs="6" Class="d-flex align-stretch">
+                <MudCard Elevation="3" Class="align-self-stretch" Style="width:100%;">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6" Style="font-style: italic;">Excel spreadsheet</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        This generates an Excel file that contains all your results.
+                    </MudCardContent>
+                    <MudCardActions Class="d-flex justify-end">
+                        <MudButton OnClick="@((e) => CreateExcelFile())" Class="mx-2">Download</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="6" Class="d-flex align-stretch">
+                <MudCard Elevation="3" Class="align-self-stretch" Style="width:100%;">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h6" Style="font-style: italic;">Powerpoint presentation</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        This generates a PowerPoint file that demonstrates your results in a presentable format.
+                    </MudCardContent>
+                    <MudCardActions Class="d-flex justify-end">
+                        <MudButton OnClick="@((e) => CreatePowerPointFile())" Class="mx-2">Download</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Close">Close</MudButton>
+    </DialogActions>
+</MudDialog>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <base href="/" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link rel="icon" href="https://www.burohappold.com/wp-content/themes/burohappold_theme/bh_favicon.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="https://www.burohappold.com/wp-content/themes/burohappold_theme/bh_favicon.jpg" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="loading-section">
+            <h1>The app is loading...</h1>
+            <br />
+            <div class="short-description">If it is your first time opening this app on your machine, this might take a bit longer.</div>
+            <br />
+            <div class="loader mt-5">
+                <div class="loader-dot dot1"></div>
+                <div class="loader-dot dot2"></div>
+                <div class="loader-dot dot3"></div>
+            </div>
+            <br />
+            <br />
+            <div class="short-description mt-9"><strong>Important:</strong> You need to be on the Buro Happold Network (in office or on VPN) to have access to this tool.</div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+</body>
+
+</html>

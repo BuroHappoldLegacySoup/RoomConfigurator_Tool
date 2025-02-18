@@ -1,0 +1,69 @@
+<MudTooltip Text="@Description" Placement="Placement.Bottom" Inline="false">
+    <MudDatePicker Label="@Label" Editable="true" @bind-Date="Date" @ref="m_DatePicker"
+                   Variant="@(Label?.Length > 0 ? Variant.Outlined : Variant.Text)" 
+                   Required="@Required" Error="@(ErrorMessage?.Length > 0)" ErrorText="@ErrorMessage" />
+</MudTooltip>
+
+    @code {
+
+        /***************************************************/
+        /**** Public Properties                         ****/
+        /***************************************************/
+
+        [Parameter]
+        public DateTime Value
+        {
+            get => _value.GetValueOrDefault();
+            set
+            {
+                DateTime? newDate = value;
+                if (value < m_MinDateTime)
+                    newDate = null;
+
+                if (_value == newDate) 
+                    return;
+                _value = newDate;
+                m_DatePicker?.ResetValidation();
+                ValueChanged.InvokeAsync(value);
+            }
+        }
+
+        [Parameter]
+        public string Label { get; set; }
+
+        [Parameter]
+        public string Description { get; set; } = "";
+
+        [Parameter]
+        public string ErrorMessage { get; set; } = "";
+
+        [Parameter]
+        public bool Required { get; set; } = false;
+
+        [Parameter]
+        public EventCallback<DateTime> ValueChanged { get; set; }
+
+
+        /***************************************************/
+        /**** Private Fields                            ****/
+        /***************************************************/
+
+        protected DateTime? _value;
+        protected DateTime m_MinDateTime = new DateTime(1754, 1, 1);
+        protected MudDatePicker m_DatePicker;
+
+        protected DateTime? Date
+        {
+            get => _value;
+            set
+            {
+                if (value == _value) 
+                    return;
+                _value = value;
+                ValueChanged.InvokeAsync(value.GetValueOrDefault());
+            }
+        }
+
+
+        /***************************************************/
+    }

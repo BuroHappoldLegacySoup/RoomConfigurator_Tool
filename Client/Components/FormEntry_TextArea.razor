@@ -1,0 +1,55 @@
+
+<MudTooltip Text="@Description" Placement="Placement.Bottom" Inline="false">
+    <MudTextField T="string" Label="@Label" @bind-Value="Value" Lines="@Lines" 
+                    Variant="@(Label?.Length > 0 ? Variant.Outlined : Variant.Text)" 
+                    Required="@Required" Error="@(ErrorMessage?.Length > 0)" ErrorText="@ErrorMessage" />
+</MudTooltip>
+
+
+@code {
+
+    /***************************************************/
+    /**** Public Properties                         ****/
+    /***************************************************/
+
+    [Parameter]
+    public string Value
+    {
+        get => _value;
+        set
+        {
+            if (_value == value) 
+                return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public string Description { get; set; } = "";
+
+    [Parameter]
+    public string ErrorMessage { get; set; } = "";
+
+    [Parameter]
+    public bool Required { get; set; } = false;
+
+    [Parameter]
+    public int Lines { get; set; } = 3;
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+
+    /***************************************************/
+    /**** Private Fields                            ****/
+    /***************************************************/
+
+    protected string _value = "";
+
+
+    /***************************************************/
+}

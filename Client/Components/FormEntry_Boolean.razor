@@ -1,0 +1,68 @@
+
+<MudTooltip Text="@Description" Placement="Placement.Bottom" Inline="false">
+    <MudSelect T="string" Value="m_Value" Label="@Label" Dense="@Dense" ValueChanged="SetStringValue"
+                Variant="@(Label?.Length > 0 ? Variant.Outlined : Variant.Text)"
+                Required="@Required" Error="@(ErrorMessage?.Length > 0)" ErrorText="@ErrorMessage">
+        @foreach (string option in m_Options)
+        {
+            <MudSelectItem T="string" Value="@option" />
+        }
+    </MudSelect>
+</MudTooltip>
+
+@code {
+
+    /***************************************************/
+    /**** Public Properties                         ****/
+    /***************************************************/
+
+    [Parameter]
+    public bool Value
+    {
+        get => m_Value == "Yes";
+        set => SetStringValue(value ? "Yes" : "No");
+    }
+
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public string Description { get; set; } = "";
+
+    [Parameter]
+    public string ErrorMessage { get; set; } = "";
+
+    [Parameter]
+    public bool Required { get; set; } = false;
+
+    [Parameter]
+    public bool Dense { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<bool> ValueChanged { get; set; }
+
+
+    /***************************************************/
+    /**** Private Methods                           ****/
+    /***************************************************/
+
+    private void SetStringValue(string value)
+    {
+        if (value == m_Value)
+            return;
+
+        m_Value = value;
+        ValueChanged.InvokeAsync(Value);
+    }
+
+
+    /***************************************************/
+    /**** Private Fields                            ****/
+    /***************************************************/
+
+    protected string m_Value = "";
+    protected List<String> m_Options = new List<string> { "No", "Yes" };
+
+
+    /***************************************************/
+}

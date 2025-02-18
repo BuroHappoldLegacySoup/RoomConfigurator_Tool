@@ -1,0 +1,61 @@
+@page "/"
+@page "/home"
+@using System.IO
+@inject NavigationManager Nav
+@inject IDialogService DialogService
+
+<style>
+	svg a 
+	{
+		cursor: pointer;
+	}
+
+	svg a text
+	{
+		fill: var(--mud-palette-text-primary);
+	}
+
+	.arrow
+	{
+		fill: var(--mud-palette-text-primary);
+	}
+</style>
+
+<br />
+
+<MudContainer MaxWidth="MaxWidth.Large">
+    <MudGrid  >
+        <MudItem xs="12" Class="d-flex align-center">
+            <MudItem>
+                <MudText Typo="Typo.h4">Welcome!</MudText>
+                <br />
+                <MudText Typo="Typo.body1" Class="pr-10">
+                    @* TODO: Add introduction here *@
+                </MudText>
+            </MudItem>
+        </MudItem>
+    </MudGrid>
+    <MudText Typo="Typo.h6" Align="Align.Center">Top guides</MudText>
+    <br />
+    <MudGrid>
+        @foreach (GuideCard guide in guides)
+        {
+        <MudItem xs="4" md="3" Class="d-flex align-stretch">
+            <MudLink Href="@guide.Link" Underline="Underline.None" Target="_blank" Class="align-self-stretch d-flex">
+                <MudCard Elevation="3" Class="align-self-stretch link-card">
+                    <MudCardHeader>
+                        <MudText Typo="Typo.subtitle1" Style="font-weight:bold;">
+                            @guide.Title
+                        </MudText>
+                    </MudCardHeader>
+                    <MudCardContent >
+                        @guide.Description
+                        <MudSpacer/>
+                    </MudCardContent>
+                </MudCard>
+            </MudLink>
+        </MudItem>
+        }
+    </MudGrid>
+</MudContainer>
+

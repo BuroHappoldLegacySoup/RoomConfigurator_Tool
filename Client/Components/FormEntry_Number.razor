@@ -1,0 +1,62 @@
+@using System.Globalization
+
+<MudTooltip Text="@Description" Placement="Placement.Bottom" Inline="false">
+    <MudNumericField @bind-Value="Value" Label="@Label" Format="@Format" Culture="@CultureInfo.GetCultureInfo("en-GB")"
+                     Variant="@(Label?.Length > 0 ? Variant.Outlined : Variant.Text)" HideSpinButtons="@HideSpinButtons"
+                     Adornment="Adornment.End" AdornmentText="@Unit" AdornmentColor="Color.Info"
+                     Required="@Required" Error="@(ErrorMessage?.Length > 0)" ErrorText="@ErrorMessage" />
+</MudTooltip>
+
+@code {
+
+    /***************************************************/
+    /**** Public Properties                         ****/
+    /***************************************************/
+
+    [Parameter]
+    public double Value
+    {
+        get => _value;
+        set
+        {
+            if (_value == value) 
+                return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public string Unit { get; set; }
+
+    [Parameter]
+    public string Format { get; set; } = "N2";
+
+    [Parameter]
+    public bool HideSpinButtons { get; set; } = false;
+
+    [Parameter]
+    public string Description { get; set; } = "";
+
+    [Parameter]
+    public string ErrorMessage { get; set; } = "";
+
+    [Parameter]
+    public bool Required { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<double> ValueChanged { get; set; }
+
+
+    /***************************************************/
+    /**** Private Fields                            ****/
+    /***************************************************/
+
+    protected double _value = 0;
+
+
+    /***************************************************/
+}

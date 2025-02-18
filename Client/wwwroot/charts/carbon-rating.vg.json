@@ -1,0 +1,213 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Energy rating sticker.",
+  "width": 420,
+  "height": 400,
+  "padding": { "left": 5, "top": 5, "right": 5, "bottom": 20 },
+  "autosize": "pad",
+  "data": [
+    {
+      "name": "ratings",
+      "values": [
+        { "label": "A++", "min": 0, "max": 50 },
+        { "label": "A+", "min": 50, "max": 100 },
+        { "label": "A", "min": 100, "max": 150 },
+        { "label": "B", "min": 150, "max": 200 },
+        { "label": "C", "min": 200, "max": 250 },
+        { "label": "D", "min": 250, "max": 300 },
+        { "label": "E", "min": 300, "max": 350 },
+        { "label": "F", "min": 350, "max": 400 },
+        { "label": "G", "min": 400, "max": 450 }
+      ]
+    },
+    { "name": "entries",
+      "values": []
+    },
+    { "name": "targetRanges",
+      "values": [
+        {"min": 150, "max": 200, "mid": 175, "label": "Aspirational (2030)" },
+        {"min": 300, "max": 350, "mid": 325, "label": "Minimum" }
+      ]
+    },
+    {
+      "name": "targets",
+      "values": [
+        {"value": 250, "label": "Target", "scale": 1},
+        {"value": 0, "label": "BH Targets", "scale": 1e-10},
+        {"value": 15, "label": "(60% LETI target)", "scale": 1e-10}
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "linear",
+      "domain": [ 0, 450 ],
+      "range": [ 100, { "signal": "width-180" } ]
+    },
+    {
+      "name": "yLinearScale",
+      "type": "linear",
+      "domain": [ 0, 450 ],
+      "clamp": true,
+      "range": [ 20, { "signal": "height" } ]
+    },
+    {
+      "name": "yBandScale",
+      "type": "band",
+      "padding": 0.1,
+      "domain": {
+        "data": "ratings",
+        "field": "label"
+      },
+      "range": [ 20, { "signal": "height" } ]
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "data": "ratings",
+        "field": "label"
+      },
+      "range": [ "#008231", "#46AA50", "#A9C801", "#FEFF33", "#FECC44", "#FF7D01", "#FE0000", "#E00000", "#A70000" ]
+    }
+  ],
+  "axes": [
+    {
+      "orient": "left",
+      "scale": "yLinearScale"
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": { "data": "ratings" },
+      "encode": {
+        "enter": {
+          "y": { "scale": "yBandScale", "field": "label" },
+          "height": { "scale": "yBandScale", "band": 1 },
+          "x": { "scale": "xscale", "field": "max" },
+          "x2": { "value": 10 },
+          "fill": { "scale": "color", "field": "label" }
+        }
+      }
+    },
+    {
+      "type": "path",
+      "from": { "data": "ratings" },
+      "encode": {
+        "enter": {
+          "path": { "value": "M-1,0 L0,0 L20,0.5 L0,1 L-1,1 Z" },
+          "scaleY": { "scale": "yBandScale", "band": 1 },
+          "y": { "scale": "yBandScale", "field": "label" },
+          "x": { "scale": "xscale", "field": "max", "offset": -0.0 },
+          "x2": { "value": 0 },
+          "fill": { "scale": "color", "field": "label" }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "ratings" },
+      "encode": {
+        "enter": {
+          "align": { "value": "right" },
+          "baseline": { "value": "middle" },
+          "fill": { "value": "white" },
+          "x": { "scale": "xscale", "field": "max", "offset": -10 },
+          "y": { "scale": "yBandScale", "field": "label", "band": 0.5 },
+          "text": { "field": "label" },
+          "fontSize": { "signal": "height/15" },
+          "fontWeight": { "value": "bold" }
+        }
+      }
+    },
+    {
+      "type": "path",
+      "from": { "data": "entries" },
+      "encode": {
+        "enter": {
+          "path": { "value": "M40,-1 H-30 L-50,0 L-30,1 H40 Z" },
+          "scaleY": { "signal": "height/22" },
+          "fill": { "value": "black" },
+          "x": { "signal": "width - 50" },
+          "y": { "scale": "yLinearScale", "field": "value" }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "entries" },
+      "encode": {
+        "enter": {
+          "align": { "value": "left" },
+          "baseline": { "value": "middle" },
+          "fill": { "value": "white" },
+          "x": { "signal": "width-80" },
+          "text": { "field": "rating" },
+          "fontSize": { "signal": "height/15" },
+          "fontWeight": { "value": "bold" },
+          "y": { "scale": "yLinearScale", "field": "value" }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": { "data": "targetRanges" },
+      "encode": {
+        "enter": {
+          "y": { "scale": "yLinearScale", "field": "min" },
+          "y2": { "scale": "yLinearScale", "field": "max" },
+          "x": { "signal": "width - 5" },
+          "x2": { "value": 5 },
+          "stroke": {"value": "#34AB8A"},
+          "strokeDash": {"value": [5.0, 5.0]}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "targetRanges" },
+      "encode": {
+        "enter": {
+          "align": { "value": "right" },
+          "baseline": { "value": "middle" },
+          "fill": { "value": "#34AB8A" },
+          "x": { "signal": "width - 110" },
+          "y": { "scale": "yLinearScale", "field": "mid" },
+          "text": { "field": "label" },
+          "fontSize": { "value": 12 }
+        }
+      }
+    },
+    {
+      "type": "path",
+      "from": { "data": "targets" },
+      "encode": {
+        "enter": {
+          "path": { "value": "M0,0 L250,0" },
+          "stroke": {"value": "#34AB8A"},
+          "strokeDash": {"value": [5.0, 5.0]},
+          "scaleX": {"field": "scale"},
+          "x": { "value": 5 },
+          "y": { "scale": "yLinearScale", "field": "value" }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "targets" },
+      "encode": {
+        "enter": {
+          "align": { "value": "right" },
+          "baseline": { "value": "middle" },
+          "fill": { "value": "#34AB8A" },
+          "x": { "signal": "width - 110" },
+          "y": { "scale": "yLinearScale", "field": "value" },
+          "text": { "field": "label" },
+          "fontSize": { "value": 12 }
+        }
+      }
+    }
+  ]
+}

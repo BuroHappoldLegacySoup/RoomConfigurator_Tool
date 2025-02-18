@@ -1,0 +1,100 @@
+@using BH.Engine.Base;
+@using BH.Tool.SoftwareName.Engine;
+@typeparam TItem
+
+<MudTooltip Text="@Description" Placement="Placement.Bottom" Inline="false">
+    @if (Searchable)
+    {
+        <MudAutocomplete T="string" @bind-Value="m_StringValue" Label="@Label" SearchFunc="MatchingOptions"
+                         ResetValueOnEmptyText="true" CoerceText="true" CoerceValue="false"  MaxItems="50"
+                         Variant="@(Label?.Length > 0 ? Variant.Outlined : Variant.Text)"
+                         Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Info"
+                         Required="@Required" Error="@(ErrorMessage?.Length > 0)" ErrorText="@ErrorMessage" />
+    }
+    else
+    {
+        <MudSelect T="string" @bind-Value="m_StringValue" Label="@Label"
+                   Variant="@(Label?.Length > 0 ? Variant.Outlined : Variant.Text)"
+                   Required="@Required" Error="@(ErrorMessage?.Length > 0)" ErrorText="@ErrorMessage">
+            @foreach (Enum e in Enum.GetValues(typeof(TItem)))
+            {
+                <MudSelectItem T="string" Value="@e?.ToText()" />
+            }
+        </MudSelect>
+    }
+</MudTooltip>
+
+@code {
+
+    /***************************************************/
+    /**** Public Properties                         ****/
+    /***************************************************/
+
+    [Parameter]
+    public TItem Value
+    {
+        get => _value;
+        set
+        {
+            if (object.Equals(_value, value)) 
+                return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public string Description { get; set; } = "";
+
+    [Parameter]
+    public string ErrorMessage { get; set; } = "";
+
+    [Parameter]
+    public bool Required { get; set; } = false;
+
+    [Parameter]
+    public bool Searchable { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<TItem> ValueChanged { get; set; }
+
+
+    /***************************************************/
+    /**** Private Methods                           ****/
+    /***************************************************/
+
+    public async Task<IEnumerable<string>> MatchingOptions(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return m_DisplayDic.Values;
+        else
+            return await Task.FromResult(m_DisplayDic.Values.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase)));
+    }
+
+
+    /***************************************************/
+    /**** Private Fields                            ****/
+    /***************************************************/
+
+    protected TItem _value = default(TItem);
+
+    protected Dictionary<TItem, string> m_DisplayDic = Enum.GetValues(typeof(TItem)).OfType<TItem>().ToDictionary(x => x, x => (x as Enum).ToText());
+
+    public string m_StringValue
+    {
+        get => m_DisplayDic.ContainsKey(_value) ? m_DisplayDic[_value] != "Undefined" ? m_DisplayDic[_value] : "" : "";
+        set
+        {
+            if (object.Equals(m_DisplayDic[_value], value)) 
+                return;
+            _value = m_DisplayDic.ContainsValue(value) ? m_DisplayDic.First(x => object.Equals(x.Value, value)).Key : default(TItem);
+            ValueChanged.InvokeAsync(_value);
+        }
+    }
+
+
+    /***************************************************/
+}

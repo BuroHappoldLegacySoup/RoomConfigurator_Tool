@@ -1,0 +1,76 @@
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+@inject IDialogService DialogService
+@inject NavigationManager NavManager
+
+<MudTooltip Placement="Placement.Bottom" Inline="false">
+    <ChildContent>
+        <MudItem Class="d-flex align-center">
+            @if (SharedData.IsTestMode)
+            {
+                <MudIcon Icon="@Icons.Material.Filled.Science" Color="@Color.Primary" Class="mx-2" />
+            }
+            else
+            {
+                <MudIcon Icon="@Icons.Material.Filled.Science" Class="mx-2" />
+            }
+            <MudSwitch T="bool" Checked="@SharedData.IsTestMode" Color="@Color.Primary" CheckedChanged="OnToggle"
+                       Class="@((DarkMode && !SharedData.IsTestMode) ? "dark-switch" : "")"
+                       Label="@(SharedData.IsTestMode ? "TEST MODE !" : "")" />
+        </MudItem>
+    </ChildContent>
+    <TooltipContent>
+        <MudText Typo="@Typo.caption">Toggle test mode on/off.</MudText><br />
+        <MudText Typo="@Typo.caption">Test mode connects to a separate test database.</MudText><br />
+        <MudText Typo="@Typo.caption">Use the test mode if you want to try the tool but don't have real project data.</MudText>
+    </TooltipContent>
+
+</MudTooltip>
+
+
+
+@code {
+
+    /***************************************************/
+    /**** Private Methods                           ****/
+    /***************************************************/
+
+    [Parameter]
+    public bool DarkMode { get; set; } = false;
+
+
+    /***************************************************/
+    /**** Private Methods                           ****/
+    /***************************************************/
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.CompletedTask;
+    }
+
+    /***************************************************/
+
+    private async void OnToggle(bool active)
+    {
+        if (SharedData.IsTestMode == active)
+            return;
+
+        await SharedData.SetTestMode(active);
+
+        string dbName = SharedData.IsTestMode ? "test" : "main";
+        IDialogReference reference = DialogService.Show<AlertDialog>("", new DialogParameters { { "Content", $"You are now using the {dbName} database." } });
+        DialogResult result = await reference.Result;
+
+        string[] dontMove = new string[] { "home", "project", "site" };
+        string location = NavManager.Uri.Split('/').Last();
+        if (!dontMove.Contains(location))
+            NavManager.NavigateTo("/project");
+    }
+
+    /***************************************************/
+    /**** Private Methods                           ****/
+    /***************************************************/
+
+
+    /***************************************************/
+}

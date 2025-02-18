@@ -1,0 +1,80 @@
+@inject HttpClient Http
+@using BH.oM.BuroHappoldData;
+
+<MudCard Elevation="10">
+    <MudCardHeader>
+        <MudText Typo="Typo.h6">@Title()</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+        @if (projectReferences.Count > 0)
+        {
+            <MudGrid>
+                @if (useUnlistedProject)
+                {
+                    <MudItem xs="4">
+                        <MudTextField T="string" Value="@selectedProjectRef.ProjectId" Label="Project number" ValueChanged="OnUnlistedProjectIdChanged"></MudTextField>
+                    </MudItem>
+                    @if (!OnlyProject && !projectReferences.Any(x => x.ProjectId == selectedProjectRef.ProjectId))
+                    {
+                        <MudItem xs="8">
+                            <MudAlert Severity="Severity.Warning">This project number is not in the database.</MudAlert>
+                        </MudItem>
+                    }
+                }
+                else
+                {
+                    <MudItem xs="4">
+                        <MudTooltip Placement="Placement.Top" Text="Begin typing the 6 or 7 digit project number exactly as it appears in Deltek.">
+                            <MudAutocomplete T="ProjectReference" Label="Project number" Value="selectedProjectRef" SearchFunc="MatchingProjectsById"
+                                             ValueChanged="OnProjectSelected" ToStringFunc="@(r => r.ProjectId)"
+                                             Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Info"
+                                             ResetValueOnEmptyText="true" CoerceText="true" CoerceValue="false" />
+                        </MudTooltip>
+                    </MudItem>
+                    <MudItem xs="8">
+                        <MudAutocomplete T="ProjectReference" Label="Project name" Value="selectedProjectRef" SearchFunc="MatchingProjectsByName"
+                                             ValueChanged="OnProjectSelected" ToStringFunc="@(r => r.Name)"
+                                         Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Info"
+                                             ResetValueOnEmptyText="true" CoerceText="true" CoerceValue="false" />
+                    </MudItem>
+                }
+
+                @if (OnlyProject)
+                {
+                    <MudItem xs="12">
+                        <MudTooltip Text="Once the project is added to Deltek, its information will be pulled automatically here." Arrow="true" Placement="Placement.Bottom">
+                            <MudCheckBox T="bool" Checked="@useUnlistedProject" Label="Use a project number not found in the database." CheckedChanged="OnUseUnlistedChanged"></MudCheckBox>
+                        </MudTooltip>
+                    </MudItem>
+                }
+                else
+                {
+                    <MudItem xs="12">
+                        <MudSelect T="string" Label="Site" Value="@SharedData.Site?.Name" ValueChanged="@((string s) => OnSiteSelected(s))">
+                            @foreach (string e in SharedData.Sites.Select(x => x?.Name).OrderBy(x => x))
+                            {
+                                <MudSelectItem Value="@e" />
+                            }
+                        </MudSelect>
+                    </MudItem>
+                }
+
+            </MudGrid>
+        }
+        else
+        {
+            <MudGrid>
+                <MudItem>
+                    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+                </MudItem>
+                <MudItem>
+                    <MudText> Loading Projects from the database... </MudText>
+                </MudItem>
+            </MudGrid>
+        }
+
+    </MudCardContent>
+</MudCard>
+
+
+

@@ -1,0 +1,123 @@
+@page "/about"
+
+<style>
+    ul {
+      list-style: none; /* Remove default bullets */
+      margin-left: 5em;
+    }
+
+    ul li::before {
+      content: "\2022";  
+      color: #c4d600; 
+      font-weight: bold; 
+      font-size: 1.5em;
+      display: inline-block; 
+      width: 1em; 
+      margin-left: -1em; 
+    }
+</style>
+
+<br />
+<MudText Typo="Typo.h4">ABOUT</MudText>
+<br />
+
+<MudContainer MaxWidth="MaxWidth.Large">
+    <MudGrid >
+        <MudItem xs="6" Class="d-flex align-stretch">
+            <MudCard Elevation="3" Class="align-self-stretch" Style="width: 100%">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">Overview</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    @* TODO: Add overview here *@
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="6" Class="d-flex align-stretch">
+            <MudCard Elevation="3" Class="align-self-stretch" Style="width: 100%">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">Use</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    @* TODO: Add description here *@
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12">
+            <MudCard Elevation="10">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">Useful links</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                        @foreach (UsefulLink link in links)
+                        {
+                            <MudItem xs="3">
+                                <MudLink Color="@Color.Info" Href="@link.Link" Target="_blank">@link.Name</MudLink>
+                            </MudItem>
+                            <MudItem xs="9">
+                                @link.Description
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12">
+            <MudCard Elevation="10">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">Powered by ...</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                        @foreach (Tool tool in tools)
+                        {
+                            <MudItem xs="3">
+                                <MudLink Color="@Color.Info" Href="@tool.Link" Target="_blank">@tool.Name</MudLink>
+                            </MudItem>
+                            <MudItem xs="2">
+                                <MudChip Label="true" Variant="Variant.Outlined">@tool.Version</MudChip>
+                            </MudItem>
+                            <MudItem xs="7">
+                                @tool.Description
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12">
+            <MudCard Elevation="10">
+                <MudCardHeader>
+                    <MudText Typo="Typo.h6">Version history</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTable Items="@versions">
+                        <ColGroup>
+                            <col style="width: 7.0em;" />
+                            <col style="width: 11.0em;" />
+                            <col style="width: 10.0em;" />
+                            <col style="width: 12.0em;" />
+                            <col />
+                        </ColGroup>
+                        <HeaderContent>
+                            <MudTh>Version</MudTh>
+                            <MudTh>BHoMVersion</MudTh>
+                            <MudTh>Type</MudTh>
+                            <MudTh>Release date</MudTh>
+                            <MudTh>Main Updates</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Version">@context.Number</MudTd>
+                            <MudTd DataLabel="BHoMVersion">@context.BHoMVersion</MudTd>
+                            <MudTd DataLabel="Type"> <MudChip Label="true" Color="@TypeColor[context.Type]">@context.Type</MudChip></MudTd>
+                            <MudTd DataLabel="Release date">@context.ReleaseDate.ToShortDateString()</MudTd>
+                            <MudTd DataLabel="Main Updates">@context.MainUpdates</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+

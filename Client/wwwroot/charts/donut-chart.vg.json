@@ -1,0 +1,99 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "description": "A basic donut chart example.",
+    "width": 300,
+    "height": 200,
+    "autosize": "none",
+  
+    "signals": [
+      {"name": "padAngle", "value": 0.02}, 
+      {"name": "radius", "value": 100 },
+      {"name": "centerX", "value": 200 }
+    ],
+  
+    "data": [
+      {
+        "name": "table",
+        "values": [],
+        "schema": {"id": "String", "value": "Number"},
+        "transform": [
+          {
+            "type": "pie",
+            "field": "value"
+          }
+        ]
+      }
+    ],
+  
+    "scales": [
+      {
+        "name": "color",
+        "type": "ordinal",
+        "domain": {"data": "table", "field": "id"},
+        "range": ["#E6484D", "#8db9ca", "#EE7837", "#FCD16D", "#AFC1A2", "#b62b77", "#8f72b0", "#5d822d", "#585253", "#24135f", "#6d104e", "#006da8", "#f0ac1b", "#1c3660", "#bc204b", "#d06a13"]
+      }
+    ],
+  
+    "marks": [
+      {
+        "type": "arc",
+        "from": {"data": "table"},
+        "encode": {
+          "enter": {
+            "fill": {"scale": "color", "field": "id"},
+            "x": {"signal": "centerX"},
+            "y": {"signal": "radius"},
+            "padAngle": {"signal": "padAngle"},
+            "tooltip": {
+              "signal": "{'Module': datum.id, 'Amount': format(datum.value, '0.1%')}"
+            }
+          },
+          "update": {
+            "startAngle": {"field": "startAngle"},
+            "endAngle": {"field": "endAngle"},
+            "innerRadius": {"signal": "radius / 2"},
+            "outerRadius": {"signal": "radius"}
+          }
+        }
+      },
+      {
+        "type": "text",
+        "from": {"data": "table"},
+        "encode": {
+          "enter": {
+            "fill": {"value": "#FFFFFF"},
+            "align": {"value": "center"},
+            "baseline": {"value": "middle"},
+            "fontSize": {"value": 12},
+            "tooltip": {
+              "signal": "{'Module': datum.id, 'Amount': format(datum.value, '0.1%')}"
+            }
+          },
+          "update": {
+            "text": {"signal": "if(datum['value'] > 0.02, format(datum['value'], '.0%'), '')"},
+            "theta": {"signal": "(datum['startAngle'] + datum['endAngle'])/2"},
+            "radius": {"signal": "3 * radius / 4"},
+            "x": {"signal": "centerX"},
+            "y": {"signal": "radius"}
+          }
+        }
+      }
+    ],
+  
+    "legends": [
+      {
+        "fill": "color",
+        "orient": "top-left",
+        "offset": 0,
+        "encode": {
+          "symbols": {
+            "update": {
+              "fillOpacity": {"value": 1.0},
+              "stroke": {"value": "transparent"}
+            }
+          }
+        }
+      }
+    ]
+  }
+  

@@ -1,0 +1,20 @@
+@inject IDialogService DialogService
+
+<MudNavMenu>
+    <MudNavLink Href="/home" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+    <MudNavGroup Title="Context" Icon="@Icons.Material.Filled.Input" Expanded="true">
+        <MudNavLink Href="/project" Icon="@Icons.Material.Filled.Architecture">Project</MudNavLink>
+        <MudNavLink Href="/site" Icon="@Icons.Material.Filled.Architecture">Site/Building</MudNavLink>
+    </MudNavGroup>
+    <MudTooltip Arrow="true" Placement="Placement.Right" Text="@(m_IsDataReady ? "" : "Will become available once valid inputs have been provided.")">
+        <MudNavGroup Title="Assessment results" Icon="@Icons.Material.Filled.Checklist" Expanded="@m_IsDataReady" Disabled="@(!m_IsDataReady)">
+            @* ---- TODO: Add links to other result pages here ---- *@
+            <MudNavLink OnClick="@((e) => PrintResults())" Icon="@Icons.Material.Filled.Print">Print</MudNavLink>
+        </MudNavGroup>
+    </MudTooltip>
+    <MudTooltip Arrow="true" Placement="Placement.Right" Text="@(m_IsDataReady ? "" : "Will become available once valid inputs have been provided.")">
+        <MudNavLink OnClick="@((e) => SaveData())" Icon="@Icons.Material.Filled.Save" Disabled="@(!m_IsDataReady)">Save</MudNavLink>
+    </MudTooltip>
+    <MudNavLink Href="/about" Icon="@Icons.Material.Filled.Info">About</MudNavLink>
+</MudNavMenu>
+

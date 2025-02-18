@@ -1,0 +1,21 @@
+
+<MudPaper Elevation="0" Class="d-flex pt-4 mt-4 justify-space-around">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => OnSubmit.InvokeAsync())">Submit</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Error" OnClick="@(() => OnDelete.InvokeAsync())">Delete</MudButton>
+</MudPaper>
+
+@code {
+
+    /***************************************************/
+    /**** Public Properties                         ****/
+    /***************************************************/
+
+    [Parameter]
+    public EventCallback OnSubmit { get; set; }
+
+    [Parameter]
+    public EventCallback OnDelete { get; set; }
+
+
+    /***************************************************/
+}

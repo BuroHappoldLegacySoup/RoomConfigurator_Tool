@@ -1,0 +1,24 @@
+@if (Link?.Length > 0)
+{
+    <MudTooltip>
+        <ChildContent>
+            <MudLink Href="@Link" Target="_blank">
+                <MudIcon Icon="@Icons.Material.Filled.Help" Variant="Variant.Filled" Color="Color.Primary" Size="@Size" />
+            </MudLink>
+        </ChildContent>
+        <TooltipContent>
+            View the user guide for this page.
+        </TooltipContent>
+    </MudTooltip>
+}
+
+
+@code {
+
+    [Parameter]
+    public string Link { get; set; } = "";
+
+    [Parameter]
+    public MudBlazor.Size Size { get; set; } = MudBlazor.Size.Medium;
+
+}

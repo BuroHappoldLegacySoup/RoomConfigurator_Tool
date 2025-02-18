@@ -1,0 +1,178 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "description": "A basic donut chart example.",
+    "width": 300,
+    "height": 200,
+    "autosize": "none",
+  
+    "signals": [
+      {"name": "padAngle", "value": 0.02},
+      {"name": "radius", "value": 100 },
+      {"name": "centerX", "value": 200 }
+    ],
+  
+    "data": [
+      {
+        "name": "types",
+        "values": [], 
+        "schema": { "group" : "String", "type" : "String", "total" : "Number" },
+        "transform": [
+          { "type":  "formula",
+            "expr":  "datum.group + '/' + datum.type",
+            "as": "fullPath"
+          },
+          {
+            "type": "pie",
+            "field": "total"
+          }
+        ]
+      },
+      {
+        "name": "groups",
+        "values": [], 
+        "schema": { "group" : "String", "total" : "Number" },
+        "transform": [
+          {
+            "type": "pie",
+            "field": "total"
+          }
+        ]
+      }
+    ],
+  
+    "scales": [
+      {
+        "name": "typeColor",
+        "type": "ordinal",
+        "domain": {"data": "types", "field": "type"},
+        "range": ["#E6484D", "#8db9ca", "#EE7837", "#FCD16D", "#AFC1A2", "#b62b77", "#8f72b0", "#5d822d", "#585253", "#24135f", "#6d104e", "#006da8", "#f0ac1b", "#1c3660", "#bc204b", "#d06a13"]
+      },
+      {
+        "name": "groupColor",
+        "type": "ordinal",
+        "domain": {"data": "types", "field": "group"},
+        "range": ["#8c8c8c", "#545454", "#c9c9c9", "#6f6f6f", "#aaaaaa", "#3a3a3a"]
+      }
+    ],
+  
+    "marks": [
+      {
+        "type": "arc",
+        "from": {"data": "types"},
+        "encode": {
+          "enter": {
+            "fill": {"scale": "typeColor", "field": "type"},
+            "x": {"signal": "centerX"},
+            "y": {"signal": "radius"},
+            "padAngle": {"signal": "padAngle"},
+            "tooltip": {
+              "signal": "{'Element group': datum.group, 'Material': datum.type, 'Amount': format(datum.total, '0.1%')}"
+            }
+          },
+          "update": {
+            "startAngle": {"field": "startAngle"},
+            "endAngle": {"field": "endAngle"},
+            "innerRadius": {"signal": "2 * radius / 3"},
+            "outerRadius": {"signal": "radius"}
+          }
+        }
+      },
+      {
+        "type": "arc",
+        "from": {"data": "groups"},
+        "encode": {
+          "enter": {
+            "fill": {"scale": "groupColor", "field": "group"},
+            "x": {"signal": "centerX"},
+            "y": {"signal": "radius"},
+            "padAngle": {"signal": "2 * padAngle"},
+            "tooltip": {
+              "signal": "{'Element group': datum.group, 'Amount': format(datum.total, '0.1%')}"
+            }
+          },
+          "update": {
+            "startAngle": {"field": "startAngle"},
+            "endAngle": {"field": "endAngle"},
+            "innerRadius": {"signal": "radius / 3"},
+            "outerRadius": {"signal": "2 * radius / 3 - padAngle * radius"}
+          }
+        }
+      },
+      {
+        "type": "text",
+        "from": {"data": "groups"},
+        "encode": {
+          "enter": {
+            "fill": {"value": "#FFFFFF"},
+            "align": {"value": "center"},
+            "baseline": {"value": "middle"},
+            "fontSize": {"value": 12},
+            "tooltip": {
+              "signal": "{'Element group': datum.group, 'Amount': format(datum.total, '0.1%')}"
+            }
+          },
+          "update": {
+            "text": {"signal": "if(datum['total'] > 0.05, substring(datum['group'], 0, 3) + '.', '')"},
+            "theta": {"signal": "(datum['startAngle'] + datum['endAngle'])/2"},
+            "radius": {"signal": "radius / 2"},
+            "x": {"signal": "centerX"},
+            "y": {"signal": "radius"}
+          }
+        }
+      },
+      {
+        "type": "text",
+        "from": {"data": "types"},
+        "encode": {
+          "enter": {
+            "fill": {"value": "#FFFFFF"},
+            "align": {"value": "center"},
+            "baseline": {"value": "middle"},
+            "fontSize": {"value": 12},
+            "tooltip": {
+              "signal": "{'Element group': datum.group, 'Material': datum.type, 'Amount': format(datum.total, '0.1%')}"
+            }
+          },
+          "update": {
+            "text": {"signal": "if(datum['total'] > 0.02, substring(datum['type'], 0, 3) + '.', '')"},
+            "theta": {"signal": "(datum['startAngle'] + datum['endAngle'])/2"},
+            "radius": {"signal": "5 * radius / 6"},
+            "x": {"signal": "centerX"},
+            "y": {"signal": "radius"}
+          }
+        }
+      }
+    ],
+  
+    "legends": [
+      {
+        "title": "Material",
+        "fill": "typeColor",
+        "orient": "top-left",
+        "offset": 0,
+        "encode": {
+          "symbols": {
+            "update": {
+              "fillOpacity": {"value": 1.0},
+              "stroke": {"value": "transparent"}
+            }
+          }
+        }
+      },
+      {
+        "title": "Element group",
+        "fill": "groupColor",
+        "orient": "bottom-left",
+        "offset": 0,
+        "encode": {
+          "symbols": {
+            "update": {
+              "fillOpacity": {"value": 1.0},
+              "stroke": {"value": "transparent"}
+            }
+          }
+        }
+      }
+    ]
+  }
+  

@@ -1,0 +1,44 @@
+@inject HttpClient Http
+
+<MudDialog Style="max-width: 75%;">
+    <DialogContent>
+        @if (!m_Confirmed)
+        {          
+        @if(m_InvalidItems.Count > 0)
+            {
+                <p>You currently have <strong>@m_InvalidItems.Count invalid elements in your data</strong>. Those will not be saved.</p>
+                <ul>
+                    @foreach (InvalidItem item in m_InvalidItems)
+                    {
+                        <li> - @item.ToText()</li>
+                    }
+                </ul>
+            }
+
+            <p>Are you sure you want to save your results in the central database?</p>
+        }
+        else if (m_Errors.Count == 0)
+        {
+            <div>The assessment was saved successfully.</div>
+        }
+        else 
+        {
+            <div>The results could not be saved. The following errors were found:</div>
+            <ul>
+                @foreach(var err in m_Errors)
+                {
+                    <li>@err</li>
+                }
+            </ul>
+        }
+
+    </DialogContent>
+    <DialogActions>
+        @if (!m_Confirmed)
+        {
+            <MudButton Color="Color.Primary" OnClick="Cancel">Cancel</MudButton>
+        }
+        <MudButton Color="Color.Primary" OnClick="Confirm">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+

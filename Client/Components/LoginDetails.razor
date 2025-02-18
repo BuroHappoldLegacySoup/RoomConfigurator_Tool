@@ -1,0 +1,10 @@
+@inject HttpClient Http
+
+<MudItem>User: @SharedData.Username</MudItem>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        SharedData.Username = await Http.GetStringAsync($"api/User");
+    }
+}

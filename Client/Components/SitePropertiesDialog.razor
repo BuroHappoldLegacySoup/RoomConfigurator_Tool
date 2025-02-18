@@ -1,0 +1,41 @@
+@using BH.oM.BuroHappoldData;
+@using BH.Engine.Reflection;
+@using System.Linq;
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            Select the type of site properties to create.
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudSelect T="Type" @bind-Value="m_Selection" Variant="Variant.Outlined">
+            @foreach (Type option in m_DisciplineTypes)
+            {
+                <MudSelectItem T="Type" Value="@option">@(option.Name.Replace("Site", "").Replace("Details", ""))</MudSelectItem>
+            }
+        </MudSelect>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] 
+    MudDialogInstance MudDialog { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(m_Selection));
+    void Cancel() => MudDialog.Cancel();
+
+    /***************************************************/
+    /**** Private Fields                            ****/
+    /***************************************************/
+
+    protected Type m_Selection = null;
+    protected static List<Type> m_DisciplineTypes = typeof(ISiteProperties).Subtypes();
+
+
+    /***************************************************/
+}
