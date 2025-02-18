@@ -22,7 +22,7 @@
 
 using BH.Engine.Base;
 using BH.oM.Base;
-using BH.Tool.SoftwareName.oM;
+using BH.Tool.RoomConfigurator_Tool.oM;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +32,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.Tool.SoftwareName.Engine
+namespace BH.Tool.RoomConfigurator_Tool.Engine
 {
     public static partial class Query
     {

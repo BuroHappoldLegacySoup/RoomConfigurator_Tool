@@ -1,6 +1,6 @@
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0) 
 
-# SoftwareName_Tool
+# RoomConfigurator_Tool_Tool
 
 This repository can be used to create brand new Zero-code tools :rocket:
 

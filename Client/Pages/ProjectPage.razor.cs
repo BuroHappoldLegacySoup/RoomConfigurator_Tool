@@ -1,13 +1,13 @@
 using BH.oM.BuroHappoldData;
-using BH.Tool.SoftwareName.Client.Global;
-using BH.Tool.SoftwareName.oM;
+using BH.Tool.RoomConfigurator_Tool.Client.Global;
+using BH.Tool.RoomConfigurator_Tool.oM;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace BH.Tool.SoftwareName.Client.Pages
+namespace BH.Tool.RoomConfigurator_Tool.Client.Pages
 {
     public partial class ProjectPage : ComponentBase
     {

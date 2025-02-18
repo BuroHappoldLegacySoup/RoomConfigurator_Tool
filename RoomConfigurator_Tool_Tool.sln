@@ -2,13 +2,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftwareName_Tool.Server", "Server\SoftwareName_Tool.Server.csproj", "{BECF7E62-3D96-464A-AF0F-E07A90ECBEC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomConfigurator_Tool_Tool.Server", "Server\RoomConfigurator_Tool_Tool.Server.csproj", "{BECF7E62-3D96-464A-AF0F-E07A90ECBEC1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftwareName_Tool.Client", "Client\SoftwareName_Tool.Client.csproj", "{0073A28F-7ECE-475E-9A5E-D49F1CD8AAA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomConfigurator_Tool_Tool.Client", "Client\RoomConfigurator_Tool_Tool.Client.csproj", "{0073A28F-7ECE-475E-9A5E-D49F1CD8AAA4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftwareName_Tool_oM", "oM\SoftwareName_Tool_oM.csproj", "{933BD0A7-2163-49F5-80DC-ABEF477825C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomConfigurator_Tool_Tool_oM", "oM\RoomConfigurator_Tool_Tool_oM.csproj", "{933BD0A7-2163-49F5-80DC-ABEF477825C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftwareName_Tool_Engine", "Engine\SoftwareName_Tool_Engine.csproj", "{BCAD03DC-01B2-43A5-8B4A-C819EC8305D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomConfigurator_Tool_Tool_Engine", "Engine\RoomConfigurator_Tool_Tool_Engine.csproj", "{BCAD03DC-01B2-43A5-8B4A-C819EC8305D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

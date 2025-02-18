@@ -1,7 +1,7 @@
 using BH.oM.BuroHappoldData;
-using BH.Tool.SoftwareName.Client.Extensions;
-using BH.Tool.SoftwareName.Client.Global;
-using BH.Tool.SoftwareName.oM;
+using BH.Tool.RoomConfigurator_Tool.Client.Extensions;
+using BH.Tool.RoomConfigurator_Tool.Client.Global;
+using BH.Tool.RoomConfigurator_Tool.oM;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace BH.Tool.SoftwareName.Client.Components
+namespace BH.Tool.RoomConfigurator_Tool.Client.Components
 {
     public partial class ProjectSelector : ComponentBase
     {

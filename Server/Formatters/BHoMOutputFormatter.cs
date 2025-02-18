@@ -35,7 +35,7 @@ using System.Collections.Generic;
 using BH.oM.Base.Attributes;
 using System.ComponentModel;
 
-namespace BH.Tool.SoftwareName.Server.Formatters
+namespace BH.Tool.RoomConfigurator_Tool.Server.Formatters
 {
     public class BHoMOutputFormatter : OutputFormatter
     {
@@ -58,7 +58,7 @@ namespace BH.Tool.SoftwareName.Server.Formatters
 
             try
             {
-                string json = BH.Tool.SoftwareName.Engine.Convert.ToJson(context.Object);
+                string json = BH.Tool.RoomConfigurator_Tool.Engine.Convert.ToJson(context.Object);
                 await response.WriteAsync(json);
             }
             catch (Exception e)

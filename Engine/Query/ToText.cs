@@ -32,7 +32,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.Tool.SoftwareName.Engine
+namespace BH.Tool.RoomConfigurator_Tool.Engine
 {
     public static partial class Query
     {

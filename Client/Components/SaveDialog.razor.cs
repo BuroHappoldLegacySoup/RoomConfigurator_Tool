@@ -1,8 +1,8 @@
 
 using BH.Engine.Base;
-using BH.Tool.SoftwareName.oM;
-using BH.Tool.SoftwareName.Client.Extensions;
-using BH.Tool.SoftwareName.Client.Global;
+using BH.Tool.RoomConfigurator_Tool.oM;
+using BH.Tool.RoomConfigurator_Tool.Client.Extensions;
+using BH.Tool.RoomConfigurator_Tool.Client.Global;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace BH.Tool.SoftwareName.Client.Components
+namespace BH.Tool.RoomConfigurator_Tool.Client.Components
 {
     public partial class SaveDialog : ComponentBase
     {

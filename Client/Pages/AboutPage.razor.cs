@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using MudBlazor;
-using BH.Tool.SoftwareName.Client.Global;
+using BH.Tool.RoomConfigurator_Tool.Client.Global;
 
-namespace BH.Tool.SoftwareName.Client.Pages
+namespace BH.Tool.RoomConfigurator_Tool.Client.Pages
 {
     public partial class AboutPage : ComponentBase
     {

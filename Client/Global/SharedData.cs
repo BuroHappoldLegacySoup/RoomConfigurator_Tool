@@ -1,5 +1,5 @@
-using BH.Tool.SoftwareName.oM;
-using BH.Tool.SoftwareName.Client.Components;
+using BH.Tool.RoomConfigurator_Tool.oM;
+using BH.Tool.RoomConfigurator_Tool.Client.Components;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using BH.oM.BuroHappoldData;
 
-namespace BH.Tool.SoftwareName.Client.Global
+namespace BH.Tool.RoomConfigurator_Tool.Client.Global
 {
     public static partial class SharedData
     {

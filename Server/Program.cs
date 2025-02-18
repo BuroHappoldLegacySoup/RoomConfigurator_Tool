@@ -29,7 +29,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BH.Tool.SoftwareName.Server
+namespace BH.Tool.RoomConfigurator_Tool.Server
 {
     public class Program
     {

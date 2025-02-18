@@ -1,7 +1,7 @@
 using BH.Engine.Base;
 using BH.oM.Base;
-using BH.Tool.SoftwareName.Client.Global;
-using BH.Tool.SoftwareName.oM;
+using BH.Tool.RoomConfigurator_Tool.Client.Global;
+using BH.Tool.RoomConfigurator_Tool.oM;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace BH.Tool.SoftwareName.Client.Shared
+namespace BH.Tool.RoomConfigurator_Tool.Client.Shared
 {
     public partial class MainLayout
     {

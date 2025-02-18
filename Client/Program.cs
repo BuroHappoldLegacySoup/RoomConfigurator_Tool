@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.Tool.SoftwareName.Client
+namespace BH.Tool.RoomConfigurator_Tool.Client
 {
     public class Program
     {

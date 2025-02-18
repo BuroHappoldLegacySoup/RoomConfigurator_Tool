@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace BH.Tool.SoftwareName.Client.Components
+namespace BH.Tool.RoomConfigurator_Tool.Client.Components
 {
     public partial class PrintDialog : ComponentBase
     {

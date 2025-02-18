@@ -1,11 +1,11 @@
-﻿using BH.Tool.SoftwareName.Client.Global;
-using BH.Tool.SoftwareName.oM;
+using BH.Tool.RoomConfigurator_Tool.Client.Global;
+using BH.Tool.RoomConfigurator_Tool.oM;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using static System.Net.WebRequestMethods;
 using System.Net.Http;
 
-namespace BH.Tool.SoftwareName.Client.Components
+namespace BH.Tool.RoomConfigurator_Tool.Client.Components
 {
     public partial class DeleteSiteDialog : ComponentBase
     {

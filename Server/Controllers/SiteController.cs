@@ -23,15 +23,15 @@
 using BH.oM.Base.Debugging;
 using BH.oM.BuroHappoldData;
 using BH.oM.Test.UnitTests;
-using BH.Tool.SoftwareName.oM;
-using BH.Tool.SoftwareName.Server.BHoM;
+using BH.Tool.RoomConfigurator_Tool.oM;
+using BH.Tool.RoomConfigurator_Tool.Server.BHoM;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BH.Tool.SoftwareName.Server.Controllers
+namespace BH.Tool.RoomConfigurator_Tool.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
