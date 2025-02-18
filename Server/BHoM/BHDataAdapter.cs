@@ -25,12 +25,12 @@ using BH.Adapter.SQL;
 using BH.oM.Base;
 using BH.oM.Base.Debugging;
 using BH.oM.BuroHappoldData;
-using BH.Tool.RoomConfigurator_Tool.oM;
+using BH.Tool.RoomConfigurator.oM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BH.Tool.RoomConfigurator_Tool.Server.BHoM
+namespace BH.Tool.RoomConfigurator.Server.BHoM
 {
     public static class BHDataAdapter
     {

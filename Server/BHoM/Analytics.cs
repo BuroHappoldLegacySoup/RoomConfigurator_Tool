@@ -32,7 +32,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BH.Tool.RoomConfigurator_Tool.Server.BHoM
+namespace BH.Tool.RoomConfigurator.Server.BHoM
 {
     public static class Analytics
     {
@@ -59,7 +59,7 @@ namespace BH.Tool.RoomConfigurator_Tool.Server.BHoM
             {
                 WebUsageEntry entry = new WebUsageEntry
                 {
-                    Toolkit = "RoomConfigurator_Tool",
+                    Toolkit = "RoomConfigurator",
                     ItemName = objectType.Name,
                     ItemType = ItemType.Type,
                     FullName = objectType.ToText(true),

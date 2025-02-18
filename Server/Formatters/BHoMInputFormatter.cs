@@ -27,7 +27,7 @@ using System.CodeDom;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace BH.Tool.RoomConfigurator_Tool.Server.Formatters
+namespace BH.Tool.RoomConfigurator.Server.Formatters
 {
     public class BHoMInputFormatter : InputFormatter
     {
@@ -55,7 +55,7 @@ namespace BH.Tool.RoomConfigurator_Tool.Server.Formatters
             string json = await reader.ReadToEndAsync();
             reader.Close();
 
-            object result = BH.Tool.RoomConfigurator_Tool.Engine.Convert.FromJson<object>(json);
+            object result = BH.Tool.RoomConfigurator.Engine.Convert.FromJson<object>(json);
             return await InputFormatterResult.SuccessAsync(result);
         }
     }

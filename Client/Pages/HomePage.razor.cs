@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using MudBlazor;
 using System.Linq;
-using BH.Tool.RoomConfigurator_Tool.Client.Global;
+using BH.Tool.RoomConfigurator.Client.Global;
 using BH.oM.Base;
 using System;
-using BH.Tool.RoomConfigurator_Tool.oM;
+using BH.Tool.RoomConfigurator.oM;
 
-namespace BH.Tool.RoomConfigurator_Tool.Client.Pages
+namespace BH.Tool.RoomConfigurator.Client.Pages
 {
     public partial class HomePage : ComponentBase
     {

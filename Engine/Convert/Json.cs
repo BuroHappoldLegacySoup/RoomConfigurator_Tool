@@ -34,7 +34,7 @@ using System.Globalization;
 using System.Linq;
 
 
-namespace BH.Tool.RoomConfigurator_Tool.Engine
+namespace BH.Tool.RoomConfigurator.Engine
 {
     public static partial class Convert
     {

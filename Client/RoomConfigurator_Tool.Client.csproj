@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>BH.Tool.RoomConfigurator_Tool.Client</RootNamespace>
+    <RootNamespace>BH.Tool.RoomConfigurator.Client</RootNamespace>
 	<PublishTrimmed>false</PublishTrimmed>
 	<LinkDuringPublish>false</LinkDuringPublish>
   </PropertyGroup>
@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Engine\RoomConfigurator_Tool_Tool_Engine.csproj" />
-    <ProjectReference Include="..\oM\RoomConfigurator_Tool_Tool_oM.csproj" />
+    <ProjectReference Include="..\Engine\RoomConfigurator_Tool_Engine.csproj" />
+    <ProjectReference Include="..\oM\RoomConfigurator_Tool_oM.csproj" />
   </ItemGroup>
 
 </Project>

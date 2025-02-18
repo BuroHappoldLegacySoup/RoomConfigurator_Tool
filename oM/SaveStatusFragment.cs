@@ -27,7 +27,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.Tool.RoomConfigurator_Tool.oM
+namespace BH.Tool.RoomConfigurator.oM
 {
     public class SaveStatusFragment : IFragment
     {

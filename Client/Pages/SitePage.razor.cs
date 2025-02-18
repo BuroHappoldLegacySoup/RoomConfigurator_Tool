@@ -4,10 +4,10 @@ using BH.Engine.BuroHappoldData;
 using BH.Engine.Reflection;
 using BH.oM.Base;
 using BH.oM.BuroHappoldData;
-using BH.Tool.RoomConfigurator_Tool.Client.Components;
-using BH.Tool.RoomConfigurator_Tool.Client.Global;
-using BH.Tool.RoomConfigurator_Tool.Engine;
-using BH.Tool.RoomConfigurator_Tool.oM;
+using BH.Tool.RoomConfigurator.Client.Components;
+using BH.Tool.RoomConfigurator.Client.Global;
+using BH.Tool.RoomConfigurator.Engine;
+using BH.Tool.RoomConfigurator.oM;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
@@ -16,7 +16,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace BH.Tool.RoomConfigurator_Tool.Client.Pages
+namespace BH.Tool.RoomConfigurator.Client.Pages
 {
     public partial class SitePage : ComponentBase
     {

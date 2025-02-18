@@ -21,8 +21,8 @@
  */
 
 using BH.oM.Base;
-using BH.Tool.RoomConfigurator_Tool.Server.BHoM;
-using BH.Tool.RoomConfigurator_Tool.oM;
+using BH.Tool.RoomConfigurator.Server.BHoM;
+using BH.Tool.RoomConfigurator.oM;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using BH.oM.BuroHappoldData;
 
-namespace BH.Tool.RoomConfigurator_Tool.Server.Controllers
+namespace BH.Tool.RoomConfigurator.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

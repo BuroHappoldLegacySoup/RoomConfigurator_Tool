@@ -1,11 +1,11 @@
-using BH.Tool.RoomConfigurator_Tool.Client.Components;
-using BH.Tool.RoomConfigurator_Tool.Client.Global;
+using BH.Tool.RoomConfigurator.Client.Components;
+using BH.Tool.RoomConfigurator.Client.Global;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using MudBlazor;
 using System.Linq;
 
-namespace BH.Tool.RoomConfigurator_Tool.Client.Shared
+namespace BH.Tool.RoomConfigurator.Client.Shared
 {
     public partial class NavMenu : ComponentBase
     {

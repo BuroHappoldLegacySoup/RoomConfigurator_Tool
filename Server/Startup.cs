@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Tool.RoomConfigurator_Tool.Server.Formatters;
+using BH.Tool.RoomConfigurator.Server.Formatters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +31,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 
-namespace BH.Tool.RoomConfigurator_Tool.Server
+namespace BH.Tool.RoomConfigurator.Server
 {
     public class Startup
     {

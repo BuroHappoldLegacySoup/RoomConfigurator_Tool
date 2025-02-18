@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>BH.Tool.RoomConfigurator_Tool.Engine</RootNamespace>
+    <RootNamespace>BH.Tool.RoomConfigurator.oM</RootNamespace>
     <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
 
@@ -12,14 +12,5 @@
 
   <ItemGroup>
     <PackageReference Include="BHoM" Version="6.2.2-alpha" />
-    <PackageReference Include="BHoM.Engine" Version="6.2.2-alpha" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Compute\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\oM\RoomConfigurator_Tool_Tool_oM.csproj" />
   </ItemGroup>
 </Project>

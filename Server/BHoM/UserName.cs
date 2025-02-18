@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BH.Tool.RoomConfigurator_Tool.Server.BHoM
+namespace BH.Tool.RoomConfigurator.Server.BHoM
 {
     public static partial class Query
     {

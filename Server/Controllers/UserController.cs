@@ -20,14 +20,14 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Tool.RoomConfigurator_Tool.Server.BHoM;
+using BH.Tool.RoomConfigurator.Server.BHoM;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BH.Tool.RoomConfigurator_Tool.Server.Controllers
+namespace BH.Tool.RoomConfigurator.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace BH.Tool.RoomConfigurator_Tool.Client.Global
+namespace BH.Tool.RoomConfigurator.Client.Global
 {
     public static class Links
     {

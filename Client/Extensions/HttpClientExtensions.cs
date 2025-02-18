@@ -13,7 +13,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BH.Tool.RoomConfigurator_Tool.Client.Extensions
+namespace BH.Tool.RoomConfigurator.Client.Extensions
 {
     public static class HttpClientExtensions
     {
@@ -30,7 +30,7 @@ namespace BH.Tool.RoomConfigurator_Tool.Client.Extensions
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync(cancellationToken);
 
-                    return BH.Tool.RoomConfigurator_Tool.Engine.Convert.FromJson<TValue>(json);
+                    return BH.Tool.RoomConfigurator.Engine.Convert.FromJson<TValue>(json);
                 }
             }
             catch (Exception e)
@@ -53,7 +53,7 @@ namespace BH.Tool.RoomConfigurator_Tool.Client.Extensions
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync(cancellationToken);
 
-                    return BH.Tool.RoomConfigurator_Tool.Engine.Convert.FromJsonArray<TValue>(json);
+                    return BH.Tool.RoomConfigurator.Engine.Convert.FromJsonArray<TValue>(json);
                 }
             }
             catch (Exception e)
@@ -67,7 +67,7 @@ namespace BH.Tool.RoomConfigurator_Tool.Client.Extensions
 
         public static async Task<HttpResponseMessage> PostAsBHoMAsync<TValue>(this HttpClient client, string? requestUri, TValue value, JsonSerializerOptions? options = null, CancellationToken cancellationToken = default)
         {
-            string json = BH.Tool.RoomConfigurator_Tool.Engine.Convert.ToJson(value);
+            string json = BH.Tool.RoomConfigurator.Engine.Convert.ToJson(value);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/bhom");
             return await client.PostAsync(requestUri, content, cancellationToken);
         }
